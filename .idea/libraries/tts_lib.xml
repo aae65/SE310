@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="tts_lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/Client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/freetts.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/cmu_us_kal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/freetts-jsapi10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/cmutimelex.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/EmacspeakServer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/en_us.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/HelloWorld.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/cmu_time_awb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/MixedVoices.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/Player.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/Server.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/FreeTTSEmacspeakServer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/FreeTTSHelloWorld.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/jsapi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/cmudict04.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/cmulex.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/JTime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/tts_lib/WebStartClock.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

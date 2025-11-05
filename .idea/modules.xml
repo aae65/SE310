@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/CarCityVersion/CarCityVersion.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/CarCityVersion/CarCityVersion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SE310.iml" filepath="$PROJECT_DIR$/.idea/SE310.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v10/SimpleExamples_v10.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v10/SimpleExamples_v10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v15/SimpleExamples_v15.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v15/SimpleExamples_v15.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v15a/SimpleExamples_v15a.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v15a/SimpleExamples_v15a.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v20/SimpleExamples_v20.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/SimpleExamples_v20/SimpleExamples_v20.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/VehicleCityVersion/VehicleCityVersion.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/VehicleCityVersion/VehicleCityVersion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/abstractInputOutput.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/abstractInputOutput/abstractInputOutput.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/basicInheritance/basicInheritance.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/basicInheritance/basicInheritance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/inheritanceExamples/basicInhertianceExample/basicInhertianceExample.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/inheritanceExamples/basicInhertianceExample/basicInhertianceExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/inheritanceExamples/inheritanceWithOverriding/inheritanceWithOverriding.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/inheritanceExamples/inheritanceWithOverriding/inheritanceWithOverriding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/listsAndArrays/listsAndArrays.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/listsAndArrays/listsAndArrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/staticExamples/staticExamples.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/staticExamples/staticExamples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentRepo/StudentRepo/transientSerialization/transientSerialization.iml" filepath="$PROJECT_DIR$/StudentRepo/StudentRepo/transientSerialization/transientSerialization.iml" />
+    </modules>
+  </component>
+</project>
