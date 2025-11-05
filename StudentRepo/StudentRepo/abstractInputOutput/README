@@ -1,0 +1,23 @@
+This is example code for abstracted input and output.
+
+This code is not intended to be dropped into assignments without modification. The Console
+ classes are not entirely without use, though they should be made more robust. The File
+ and Audio classes need some work before they should be used to a deliverable.
+
+ The audio jar files need to be added as a library to run the example driver:
+ 1. right click tts_lib
+ 2. select "Add as Library..."
+ 3. Click "OK" and add as library
+
+ The audio jar files should now be included in your project and the example main should
+ run as expected.
+
+ ** NOTE **
+ You can pass anything to the "say()" function from Out, the same way you would use System
+ .out.println(). This means, anything that implements a toString() method will have proper
+  output.
+
+  This means, if you look at VehicleCityVersion/CodeProject/src/Driver.java you can 
+  replace the print() function at the top of that file with the code here, and your outout
+  is now abstracted. 
+ ** END NOTE **

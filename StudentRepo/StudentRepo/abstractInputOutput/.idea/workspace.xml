@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cc9e2bdc-186f-47cd-a5fb-15f7067c4d14" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1dYG94HrqkonMDhqvZJInzU6Zo5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="ExampleDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ExampleDriver" />
+      <module name="abstractInputOutput" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ExampleDriver" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="743" y="443" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592625419551">
+      <screen x="0" y="23" width="2048" height="1221" />
+    </state>
+    <state x="743" y="443" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2048.1221@0.23.2048.1221" timestamp="1592625419551" />
+    <state width="2006" height="344" key="GridCell.Tab.0.bottom" timestamp="1592680092111">
+      <screen x="0" y="23" width="2048" height="1221" />
+    </state>
+    <state width="2006" height="344" key="GridCell.Tab.0.bottom/-316.-1417.2560.1417/0.23.2048.1221@0.23.2048.1221" timestamp="1592680092111" />
+    <state width="2006" height="344" key="GridCell.Tab.0.bottom/0.23.2048.1221@0.23.2048.1221" timestamp="1592625195276" />
+    <state width="2006" height="344" key="GridCell.Tab.0.center" timestamp="1592680092110">
+      <screen x="0" y="23" width="2048" height="1221" />
+    </state>
+    <state width="2006" height="344" key="GridCell.Tab.0.center/-316.-1417.2560.1417/0.23.2048.1221@0.23.2048.1221" timestamp="1592680092110" />
+    <state width="2006" height="344" key="GridCell.Tab.0.center/0.23.2048.1221@0.23.2048.1221" timestamp="1592625195275" />
+    <state width="2006" height="344" key="GridCell.Tab.0.left" timestamp="1592680092110">
+      <screen x="0" y="23" width="2048" height="1221" />
+    </state>
+    <state width="2006" height="344" key="GridCell.Tab.0.left/-316.-1417.2560.1417/0.23.2048.1221@0.23.2048.1221" timestamp="1592680092110" />
+    <state width="2006" height="344" key="GridCell.Tab.0.left/0.23.2048.1221@0.23.2048.1221" timestamp="1592625195274" />
+    <state width="2006" height="344" key="GridCell.Tab.0.right" timestamp="1592680092110">
+      <screen x="0" y="23" width="2048" height="1221" />
+    </state>
+    <state width="2006" height="344" key="GridCell.Tab.0.right/-316.-1417.2560.1417/0.23.2048.1221@0.23.2048.1221" timestamp="1592680092110" />
+    <state width="2006" height="344" key="GridCell.Tab.0.right/0.23.2048.1221@0.23.2048.1221" timestamp="1592625195275" />
+  </component>
+</project>
