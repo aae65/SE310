@@ -1,10 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Survey implements Serializable {
-    transient Scanner input;
     private static final long serialVersionUID = 1L;
     int id;
     String filePath = "./";
@@ -16,17 +14,26 @@ public class Survey implements Serializable {
     Matching matching;
     List<Question> questions = new ArrayList<>();
     String prompt;
-    InputValidation inputValidation;
+    InputHandler inputHandler;
+    OutputHandler outputHandler;
+    String type = "survey";
 
-    public Survey(Scanner input, InputValidation inputValidation) {
-        this.input = input;
-        this.inputValidation = inputValidation;
+    String[] menu = {"Add a new T/F question",
+            "Add a new multiple-choice question",
+            "Add a new short answer question",
+            "Add a new essay question",
+            "Add a new date question",
+            "Add a new matching question",
+            "Return to previous menu"};
+
+    public Survey(InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
         checkDir();
     }
 
     public void checkDir() {
         File dir = new File(filePath);
-        File[] files = dir.listFiles((d, name) -> name.startsWith("survey") && name.endsWith(".ser") && !name.contains("userAnswers"));
+        File[] files = dir.listFiles((d, name) -> name.startsWith(type) && name.endsWith(".ser") && !name.contains("userAnswers"));
 		if (files == null || files.length == 0) {
 			this.id = 0;
 		} else {
@@ -38,160 +45,132 @@ public class Survey implements Serializable {
 		}
     }
 
-    private void displayMenu() {
-        System.out.println("1) Add a new T/F question");
-        System.out.println("2) Add a new multiple-choice question");
-        System.out.println("3) Add a new short answer question");
-        System.out.println("4) Add a new essay question");
-        System.out.println("5) Add a new date question");
-        System.out.println("6) Add a new matching question");
-        System.out.println("7) Return to previous menu");
-    }
-
     private void getChoices() {
-        int choice = inputValidation.continuallyValidateInt(input.nextLine());
-        if (choice == 7 && questions.isEmpty()) {
-            System.out.println("You must add at least one question. Survey will not be loaded.");
-            displayMenu();
-            choice = inputValidation.continuallyValidateInt(input.nextLine());
+        int choice = inputHandler.getValidInt();
+        if (choice == 8 && questions.isEmpty()) {
+            outputHandler.println("You must add at least one question. Survey will not be loaded.");
+            outputHandler.displayMenu(menu);
+            choice = inputHandler.getValidInt();
         }
-        while (choice != 7) {
+        while (choice != 8) {
             switch (choice) {
                 case 1:
-                    System.out.println("Enter the prompt for your True/False question:");
-                    prompt = input.nextLine();
-                    if (inputValidation.validateString(prompt)) {
-                        trueFalse = new TrueFalse(prompt);
-                        questions.add(trueFalse);
-                    }
+                    outputHandler.println("Enter the prompt for your True/False question:");
+                    prompt = inputHandler.getValidString();
+                    trueFalse = new TrueFalse(prompt);
+                    questions.add(trueFalse);
                     break;
                 case 2:
-                    System.out.println("Enter the prompt for your multiple-choice question:");
-                    prompt = input.nextLine();
-                    if (inputValidation.validateString(prompt)) {
-                        multipleChoice = new MultipleChoice(prompt);
-                        System.out.println("Enter the number of choices for your multiple-choice question: ");
-                        String choiceStr = input.nextLine();
-                        multipleChoice.setChoiceNumber(inputValidation.continuallyValidateInt(choiceStr));
-                        for (int i = 0; i < multipleChoice.choiceNum; i++) {
-                            System.out.println("Enter choice #" + (i + 1) + ":");
-                            choiceStr =  input.nextLine();
-                            multipleChoice.setChoice(inputValidation.continuallyValidateString(choiceStr));
-                        }
-                        System.out.println("How many answers are allowed for this question?");
-                        String num = input.nextLine();
-                        if (inputValidation.validateAnswersInt(num, multipleChoice.choiceNum)) {
-                            if (inputValidation.checkBounds(Integer.parseInt(num), multipleChoice.choiceNum)) {
-                                multipleChoice.numOfAnswers = Integer.parseInt(num);
-                            }
-                        } else {
-                            System.out.println("Number of allowed answers will be default.");
-                        }
-                        questions.add(multipleChoice);
-                    }
+                    outputHandler.println("Enter the prompt for your multiple-choice question:");
+                    prompt = inputHandler.getValidString();
+					multipleChoice = new MultipleChoice(prompt);
+                    
+					outputHandler.println("Enter the number of choices for your multiple-choice question: ");
+					multipleChoice.setChoiceNumber(inputHandler.getValidInt());
+					for (int i = 0; i < multipleChoice.choiceNum; i++) {
+						outputHandler.println("Enter choice #" + (i + 1) + ":");
+						multipleChoice.setChoice(inputHandler.getValidString());
+					}
+                    
+					outputHandler.println("How many answers are allowed for this question?");
+					multipleChoice.setNumOfAnswers(inputHandler.getValidInt());
+                    
+					questions.add(multipleChoice);
                     break;
                 case 3:
-                    System.out.println("Enter the prompt for your short answer question:");
-                    prompt = input.nextLine();
-                    if (inputValidation.validateString(prompt)) {
-                        shortAnswer = new ShortAnswer(prompt);
-                        setNumOfAllowedAnswers(shortAnswer);
-                        questions.add(shortAnswer);
-                    }
+                    outputHandler.println("Enter the prompt for your short answer question:");
+                    prompt = inputHandler.getValidString();
+                    shortAnswer = new ShortAnswer(prompt);
+                    setNumOfAllowedAnswers(shortAnswer);
+                    questions.add(shortAnswer);
                     break;
                 case 4:
-                    System.out.println("Enter the prompt for your essay question:");
-                    prompt = input.nextLine();
-                    if (inputValidation.validateString(prompt)) {
-                        essay = new Essay(prompt);
-                        setNumOfAllowedAnswers(essay);
-                        questions.add(essay);
-                    }
+                    outputHandler.println("Enter the prompt for your essay question:");
+					prompt = inputHandler.getValidString();
+					essay = new Essay(prompt);
+					setNumOfAllowedAnswers(essay);
+					questions.add(essay);
                     break;
                 case 5:
-                    System.out.println("Enter the prompt for your date question:");
-                    prompt = input.nextLine();
-                    if (inputValidation.validateString(prompt)) {
-                        date = new Date(prompt);
+                    outputHandler.println("Enter the prompt for your date question:");
+					prompt = inputHandler.getValidString();
+					date = new Date(prompt);
 
-                        System.out.println("What format should a date be entered in? Leave blank for default (MM-dd-yyyy)");
-                        String format = input.nextLine();
-                        if (inputValidation.validateFormat(format) != null) {
-                            date.setFormat(format);
-                        } else {
-                            System.out.println("Default format will be used.");
-                        }
+					outputHandler.println("What format should a date be entered in? Leave blank for default (MM-dd-yyyy)");
+					String format = inputHandler.validateFormat(inputHandler.readLine());
+					if (format != null) {
+						date.setFormat(format);
+					} else {
+						outputHandler.println("Default format will be used.");
+					}
 
-                        setNumOfAllowedAnswers(date);
-                        questions.add(date);
-                    }
+					setNumOfAllowedAnswers(date);
+					questions.add(date);
                     break;
                 case 6:
-                    System.out.println("Enter the prompt for your matching question:");
-                    prompt = input.nextLine();
-                    if (inputValidation.validateString(prompt)) {
-                        matching = new Matching(prompt);
+                    outputHandler.println("Enter the prompt for your matching question:");
+                    prompt = inputHandler.getValidString();
+					matching = new Matching(prompt);
 
-                        System.out.println("Enter the number of choices for your matching question:");
-                        String choiceNum = input.nextLine();
-                        matching.setChoiceNumber(inputValidation.continuallyValidateInt(choiceNum));
+					outputHandler.println("Enter the number of choices for your matching question:");
+					matching.setChoiceNumber(inputHandler.getValidInt());
 
-                        System.out.println("Enter the statements for your matching question:");
-                        for (int i = 0; i < matching.choiceNum; i++) {
-                            System.out.println("Enter statement #" + (i + 1) + ": ");
-                            choiceNum = input.nextLine();
-                            matching.setChoice(inputValidation.continuallyValidateString(choiceNum));
-                        }
+					outputHandler.println("Enter the statements for your matching question:");
+					for (int i = 0; i < matching.choiceNum; i++) {
+						outputHandler.println("Enter statement #" + (i + 1) + ": ");
+						matching.setChoice(inputHandler.getValidString());
+					}
 
-                        System.out.println("Enter the possible answers for your statements:");
-                        for (int i = 0; i < matching.choiceNum; i++) {
-                            System.out.println("Enter possible answer #" + (i + 1) + ": ");
-                            choiceNum = input.nextLine();
-                            matching.setPossibleAnswers(inputValidation.continuallyValidateString(choiceNum));
-                        }
-                        questions.add(matching);
-                    }
+					outputHandler.println("Enter the possible answers for your statements:");
+					for (int i = 0; i < matching.choiceNum; i++) {
+						outputHandler.println("Enter possible answer #" + (i + 1) + ": ");
+						matching.setPossibleAnswers(inputHandler.getValidString());
+					}
+					questions.add(matching);
+                    break;
+                case 7:
+                    //TODO add functionality in Part D
                     break;
             }
-            displayMenu();
-            choice = inputValidation.continuallyValidateInt(input.nextLine());
+            outputHandler.displayMenu(menu);
+            choice = inputHandler.getValidInt();
         }
     }
 
     private void setNumOfAllowedAnswers(Question question) {
-        System.out.println("How many answers are allowed for this question?");
-        String num = input.nextLine();
-        if (inputValidation.validateInt(num)) {
+        outputHandler.println("How many answers are allowed for this question?");
+        String num = inputHandler.readLine();
+        if (inputHandler.validateInt(num)) {
             question.setNumOfAnswers(Integer.parseInt(num));
         } else {
-            System.out.println("Number of allowed answers will be default.");
+            outputHandler.println("Number of allowed answers will be default.");
         }
     }
 
     public void showAllSurveys() {
         File dir = new File(filePath);
-        File[] files = dir.listFiles((d, name) -> name.startsWith("survey") && name.endsWith(".ser") && !name.contains("userAnswers"));
+        File[] files = dir.listFiles((d, name) -> name.startsWith(type) && name.endsWith(".ser") && !name.contains("userAnswers"));
 
         if (files == null || files.length == 0) {
-            System.out.println("No surveys to load");
+            outputHandler.println("No surveys to load");
             return;
         }
 
-        System.out.println("Please select a survey to to load (enter a number):");
+        outputHandler.println("Please select a survey to to load (enter a number):");
         for (int i = 0; i < files.length; i++) {
-            System.out.println((i + 1) + ") " + files[i].getName());
+            outputHandler.println((i + 1) + ") " + files[i].getName());
         }
     }
 
-    public void createSurvey() {
-        displayMenu();
+    public void create() {
+        outputHandler.displayMenu(menu);
         getChoices();
     }
 
-    public Survey loadSurvey() throws ClassNotFoundException {
+    public Survey load() throws ClassNotFoundException {
         showAllSurveys();
-        int findId = inputValidation.continuallyValidateInt(input.nextLine());
-        File file = new File(filePath + "survey" + findId + ".ser");
+        int findId = inputHandler.getValidInt();
+        File file = new File(filePath + type + findId + ".ser");
         if (!file.exists()) {
             return null;
         }
@@ -199,8 +178,7 @@ public class Survey implements Serializable {
 			FileInputStream fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
             Survey survey = (Survey) ois.readObject();
-            survey.input = this.input;
-            survey.inputValidation = this.inputValidation;
+            survey.inputHandler = this.inputHandler;
             return survey;
 		} catch (IOException ex) {
             return null;
@@ -209,66 +187,58 @@ public class Survey implements Serializable {
 
     public void displaySurvey() {
         for (int i = 0; i < questions.size(); i++) {
-            System.out.println((i + 1) + ") " + questions.get(i).display() + "\n");
+            outputHandler.println((i + 1) + ") " + questions.get(i).display() + "\n");
         }
     }
 
-    public void modifySurvey() {
+    public void modify() {
         displaySurvey();
-        System.out.println("What question do you wish to modify?");
-        String str = input.nextLine();
-        Question question = inputValidation.continuallyValidateIndex(str, questions);
-        System.out.println(question.display());
-        System.out.println("\nDo you wish to modify the prompt?");
-        String answer = input.nextLine();
+        outputHandler.println("What question do you wish to modify?");
+        Question question = questions.get(inputHandler.getValidIndex(questions));
+        outputHandler.println(question.display());
+        outputHandler.println("\nDo you wish to modify the prompt?");
+        String answer = inputHandler.getValidString();
         if (answer.equalsIgnoreCase("yes")) {
-            System.out.println(question.getPrompt() + "\nEnter a new prompt:");
-            str = input.nextLine();
-            question.prompt = inputValidation.continuallyValidateString(str);
+            outputHandler.println(question.getPrompt() + "\nEnter a new prompt:");
+            question.prompt = inputHandler.getValidString();
         } else {
             if (question.getClass().equals(MultipleChoice.class)) {
-                System.out.println("Do you wish to modify choices?");
-                str = input.nextLine();
-                if ("yes".equalsIgnoreCase(str)) {
-                    System.out.println(((MultipleChoice) question).displayChoices());
-                    System.out.println("Which choice do you wish to modify?");
-                    str = input.nextLine();
-                    char choice = inputValidation.continuallyValidateString(str).charAt(0);
-                    str = input.nextLine();
-                    ((MultipleChoice) question).choices.set((int) choice - 'A', inputValidation.continuallyValidateString(str));
+                outputHandler.println("Do you wish to modify choices?");
+                if ("yes".equalsIgnoreCase(inputHandler.getValidString())) {
+                    outputHandler.println(((MultipleChoice) question).displayChoices());
+                    outputHandler.println("Which choice do you wish to modify?");
+                    char choice = inputHandler.getValidString().charAt(0);
+                    outputHandler.println("Enter the new choice: ");
+                    ((MultipleChoice) question).choices.set((int) choice - 'A', inputHandler.getValidString());
                 }
             } else if (question.getClass().equals(Matching.class)) {
-                System.out.println("Do you wish to modify statements?");
-                str = input.nextLine();
-                if ("yes".equalsIgnoreCase(str)) {
-                    System.out.println(((Matching) question).displayChoices());
-                    System.out.println("Which statement do you wish to modify?");
-                    str = input.nextLine();
-                    char choice = inputValidation.continuallyValidateString(str).charAt(0);
-                    str = input.nextLine();
-                    ((Matching) question).choices.set((int) choice - 'A', str);
+                outputHandler.println("Do you wish to modify statements?");
+                if ("yes".equalsIgnoreCase(inputHandler.getValidString())) {
+                    outputHandler.println(((Matching) question).displayChoices());
+                    outputHandler.println("Which statement do you wish to modify?");
+                    char choice = inputHandler.getValidString().charAt(0);
+                    outputHandler.println("Enter the new statement: ");
+                    ((Matching) question).choices.set((int) choice - 'A', inputHandler.getValidString());
                 }
-                System.out.println("Which possible answer do you wish to modify? Please enter a number:");
-                System.out.println(((Matching) question).displayPossibleAnswers());
-                str = input.nextLine();
-                System.out.println("Enter the new possible answer:");
-                String newAnswer = input.nextLine();
-                ((Matching) question).possibleAnswers.set(inputValidation.continuallyValidateInt(str) - 1, newAnswer);
+                outputHandler.println("Which possible answer do you wish to modify? Please enter a number:");
+                outputHandler.println(((Matching) question).displayPossibleAnswers());
+                int choice = inputHandler.getValidInt();
+                outputHandler.println("Enter the new possible answer:");
+                String newAnswer = inputHandler.getValidString();
+                ((Matching) question).possibleAnswers.set(choice - 1, newAnswer);
             } else if (question.getClass().equals(Date.class)) {
-                System.out.println("Do you wish to modify the date format?");
-                str = input.nextLine();
-                if ("yes".equalsIgnoreCase(str)) {
-                    System.out.println(((Date) question).format);
-                    System.out.println("Enter the new date format (leave blank for default format MM-dd-yyyy): ");
-                    str = input.nextLine();
-                    ((Date) question).format = inputValidation.validateFormat(str);
+                outputHandler.println("Do you wish to modify the date format?");
+                if ("yes".equalsIgnoreCase(inputHandler.getValidString())) {
+                    outputHandler.println(((Date) question).format);
+                    outputHandler.println("Enter the new date format (leave blank for default format MM-dd-yyyy): ");
+                    ((Date) question).format = inputHandler.validateFormat(inputHandler.readLine());
                 }
             }
         }
     }
 
-    public void saveSurvey() {
-        String filename = filePath + "survey" + id + ".ser";
+    public void save() {
+        String filename = filePath + type + id + ".ser";
         try {
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -277,44 +247,39 @@ public class Survey implements Serializable {
             fos.close();
             displaySurvey();
         } catch (IOException ex) {
-            System.out.println("Survey could not be created");
+            outputHandler.println("File could not be created");
         }
     }
 
-    public void takeSurvey() {
-        System.out.println("Enter your name:");
-        String name = inputValidation.continuallyValidateTF(input.nextLine());
+    public void take() {
+        outputHandler.println("Enter your name:");
+        String name = inputHandler.getValidTF();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
-            String response;
-            System.out.println((i + 1) + ") " + question.getPrompt());
+            outputHandler.println((i + 1) + ") " + question.getPrompt());
 
             if (question.numOfAnswers > 1) {
                 if (question.getClass().equals(MultipleChoice.class)) {
-                    System.out.println(((MultipleChoice) question).displayChoices());
+                    outputHandler.println(((MultipleChoice) question).displayChoices());
                     for (int j = 0; j < question.numOfAnswers; j++) {
-                        response = input.nextLine();
-                        question.setUserAnswer(inputValidation.continuallyValidateString(response));
+                        question.setUserAnswer(inputHandler.getValidString());
                     }
                 } else if (question.getClass().equals(Matching.class)) {
-                    System.out.println(((Matching) question).displayChoicesAndPossibleAnswers());
+                    outputHandler.println(((Matching) question).displayChoicesAndPossibleAnswers());
                     for (int j = 0; j < question.numOfAnswers; j++) {
-                        response = input.nextLine();
-                        question.setUserAnswer(inputValidation.continuallyValidateString(response));
+                        question.setUserAnswer(inputHandler.getValidString());
                     }
                 } else {
                     for (int j = 0; j < question.numOfAnswers; j++) {
-                        System.out.println("Enter answer #" + (j + 1) + " of " + question.numOfAnswers + ":");
-                        response = input.nextLine();
-                        question.setUserAnswer(inputValidation.continuallyValidateString(response));
+                        outputHandler.println("Enter answer #" + (j + 1) + " of " + question.numOfAnswers + ":");
+                        question.setUserAnswer(inputHandler.getValidString());
                     }
                 }
             } else {
-                response = input.nextLine();
-                question.setUserAnswer(inputValidation.continuallyValidateString(response));
+                question.setUserAnswer(inputHandler.getValidString());
             }
         }
-        String filename = filePath + "survey" + id + "-userAnswers-" + name + ".ser";
+        String filename = filePath + type + id + "-userAnswers-" + name + ".ser";
         try {
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -322,7 +287,11 @@ public class Survey implements Serializable {
             oos.close();
             fos.close();
         } catch (IOException ex) {
-            System.out.println("Your answers could not be recorded.");
+            outputHandler.println("Your answers could not be recorded.");
         }
+    }
+
+    public void tabulate() {
+        //TODO Part D
     }
 }
