@@ -16,4 +16,17 @@ public class Response implements Serializable {
     public void setUserAnswer(String answer) {
         userAnswers.add(answer);
     }
+
+    public List<String> getCorrectAnswers() {
+        return this.correctAnswers;
+    }
+
+    public List<String> getUserAnswers() {
+        return this.userAnswers;
+    }
+
+    public boolean compare(Response userAnswer, Response correctAnswer) {
+        //TODO: part D
+        return true;
+    }
 }
