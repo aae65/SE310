@@ -1,4 +1,8 @@
-public class OutputHandler {
+import java.io.Serializable;
+
+public class OutputHandler implements Serializable {
+    private final static long serialVersionUID = 1L;
+    public OutputHandler() {}
     public void print(String message) {
         System.out.print(message);
     }

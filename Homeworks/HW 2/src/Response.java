@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Response implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,8 +26,19 @@ public class Response implements Serializable {
         return this.userAnswers;
     }
 
-    public boolean compare(Response userAnswer, Response correctAnswer) {
-        //TODO: part D
-        return true;
+    public boolean compare(String userAnswer, String correctAnswer) {
+        return Objects.equals(userAnswer, correctAnswer);
+    }
+
+    public String displayCorrectAnswers() {
+        StringBuilder str = new StringBuilder();
+        if (correctAnswers.size() == 1) {
+            return str.append("The correct answer is: ").append(correctAnswers.get(0)).toString();
+        }
+        str.append("The correct answers are: ");
+        for (String correctAnswer : correctAnswers) {
+            str.append(correctAnswer).append("\n");
+        }
+        return str.toString();
     }
 }

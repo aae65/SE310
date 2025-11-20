@@ -29,7 +29,7 @@ public class MainMenu {
                     TestChoices();
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+                    outputHandler.println("Exiting...");
                     return;
             }
             outputHandler.displayMenu(menu);
@@ -46,48 +46,124 @@ public class MainMenu {
                     break;
                 case 2:
                     if (survey == null) {
-                        System.out.println("You must have a survey loaded in order to display it.");
+                        outputHandler.println("You must have a survey loaded in order to display it.");
                     } else {
-                        survey.displaySurvey();
+                        survey.displayAllQuestions();
                     }
                     break;
                 case 3:
                     Survey temp = new Survey(inputHandler);
                     if (temp.id == 0) {
-                        System.out.println("No surveys have been created.");
+                        outputHandler.println("No surveys have been created.");
                     } else {
                         survey = temp.load();
                     }
                     break;
                 case 4:
                     if (survey == null) {
-                        System.out.println("You must have a survey loaded in order to save it.");
+                        outputHandler.println("You must have a survey loaded in order to save it.");
                     } else {
                         survey.save();
                     }
                     break;
                 case 5:
                     if (survey == null) {
-                        System.out.println("You must have a survey loaded in order to take it.");
+                        outputHandler.println("You must have a survey loaded in order to take it.");
                     } else {
                         survey.take();
                     }
                     break;
                 case 6:
                     if (survey == null) {
-                        System.out.println("You must have a survey loaded in order to modify it.");
+                        outputHandler.println("You must have a survey loaded in order to modify it.");
                     } else {
                         survey.modify();
                     }
                     break;
+                case 7:
+                    if (survey == null) {
+                        outputHandler.println("You must have a survey loaded in order to tabulate it.");
+                    } else {
+                        survey.tabulate();
+                    }
+                    break;
+                case 8:
+                    return;
             }
             outputHandler.displayMenu(surveyMenu);
         }
     }
 
-    protected static void TestChoices() {
+    protected static void TestChoices() throws ClassNotFoundException {
         while (true) {
-            break;
+            switch (inputHandler.getValidInt()) {
+                case 1:
+                    test = new Test(inputHandler);
+                    test.id += 1;
+                    test.create();
+                    break;
+                case 2:
+                    if (test == null) {
+                        outputHandler.println("You must have a test loaded in order to display it.");
+                    } else {
+                        test.displayAllQuestions();
+                    }
+                    break;
+                case 3:
+                    if (test == null) {
+                        outputHandler.println("You must have a test loaded in order to display it.");
+                    } else {
+                        test.displayWithAnswers();
+                    }
+                    break;
+                case 4:
+                    Test temp = new Test(inputHandler);
+                    if (temp.id == 0) {
+                        outputHandler.println("No tests have been created.");
+                    } else {
+                        test = temp.load();
+                    }
+                    break;
+                case 5:
+                    if (test == null) {
+                        outputHandler.println("You must have a test loaded in order to save it.");
+                    } else {
+                        test.save();
+                    }
+                    break;
+                case 6:
+                    if (test == null) {
+                        outputHandler.println("You must have a test loaded in order to take it.");
+                    } else {
+                        test.take();
+                    }
+                    break;
+                case 7:
+                    if (test == null) {
+                        outputHandler.println("You must have a test loaded in order to modify it.");
+                    } else {
+                        test.modify();
+                    }
+                    break;
+                case 8:
+                    if (test == null) {
+                        outputHandler.println("You must have a test loaded in order to tabulate it.");
+                    } else {
+                        test.tabulate();
+                    }
+                    break;
+                case 9:
+                    if (test == null) {
+                        Test temp2 = new Test(inputHandler);
+                        temp2.grade();
+                    } else {
+                        test.grade();
+                    }
+                    break;
+                case 10:
+                    return;
+            }
+            outputHandler.displayMenu(testChoices);
         }
     }
 }

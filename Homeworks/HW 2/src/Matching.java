@@ -8,7 +8,7 @@ public class Matching extends MultipleChoice {
         super(prompt);
 	}
 
-    private String getString(StringBuilder str) {
+    protected String getString(StringBuilder str) {
         for (int i = 0; i < choices.size(); i++) {
             str.append((char)('A' + i)).append(") ").append(choices.get(i)).append("\t").append(i + 1).append(") ").append(possibleAnswers.get(i)).append("\n");
         }
