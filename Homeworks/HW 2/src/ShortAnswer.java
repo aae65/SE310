@@ -17,4 +17,9 @@ public class ShortAnswer extends Essay {
         }
         return str.toString();
     }
+
+    @Override
+    public String displayCorrectAnswers(){
+        return answer.displayCorrectAnswers();
+    }
 }

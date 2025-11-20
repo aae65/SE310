@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Question implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -23,5 +24,21 @@ public abstract class Question implements Serializable {
 
     public void setNumOfAnswers(int numOfAnswers) {
         this.numOfAnswers = numOfAnswers;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.answer.setCorrectAnswer(correctAnswer);
+    }
+
+    public String displayCorrectAnswers() {
+        return answer.displayCorrectAnswers();
+    }
+
+    public List<String> getUserAnswers() {
+        return answer.getUserAnswers();
+    }
+
+    public List<String> getCorrectAnswers() {
+        return answer.getCorrectAnswers();
     }
 }
